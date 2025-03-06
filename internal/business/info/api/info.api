@@ -1,0 +1,37 @@
+syntax = "v1"
+
+info (
+	title:   "info"
+	desc:    "信息查询相关，例如聊天记录"
+	author:  "n8spxd"
+	version: "v1"
+)
+
+type (
+	TimelineSyncRequest {
+		ID        uint32 `header:"UserID"`
+		Timestamp int64  `form:"timestamp"` // Unix 时间戳
+	}
+	TimelineSyncInfo {
+		SenderID  uint32 `json:"senderId"`
+		GroupID   uint32 `json:"groupId,omitempty"`
+		Message   string `json:"message"`
+		Timestamp int64  `json:"timestamp"`
+	}
+	TimelineSyncResponse {
+		Infos []TimelineSyncInfo `json:"infos"`
+	}
+	MessageRecordRequest  {}
+	MessageRecordResponse  {}
+)
+
+service infos {
+	// 用户上线，推送新的消息
+	@handler timelineSync
+	get /timelinesync (TimelineSyncRequest) returns (TimelineSyncResponse)
+
+	// 拉取历史所有消息记录
+	@handler messageRecord
+	get /messagerecord (MessageRecordRequest) returns (MessageRecordResponse)
+}
+
