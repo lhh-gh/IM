@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>主页面 - Cow IM</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div class="container">
+    <div class="sidebar">
+        <button id="recentButton">最近会话</button>
+        <button id="friendsButton">好友</button>
+        <button id="groupsButton">群组</button>
+    </div>
+    <div class="conversation-list" id="recentList">
+    </div>
+    <div class="conversation-list" id="friendsList" style="display: none;">
+    </div>
+    <div class="conversation-list" id="groupsList" style="display: none;">
+    </div>
+    <div class="chat-section">
+        <div class="chat-header" id="chatHeader">
+        </div>
+        <div class="chat-history" id="chatHistory">
+        </div>
+        <div class="message-input">
+            <textarea id="messageInput" placeholder="输入消息..."></textarea>
+            <button class="send-button" id="sendButton">发送</button>
+        </div>
+    </div>
+</div>
+
+<!-- 引入 Protobuf.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/protobufjs/7.2.3/protobuf.min.js"></script>
+<!-- 引入模块化的 JS -->
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>
