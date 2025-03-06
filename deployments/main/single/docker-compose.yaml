@@ -1,0 +1,94 @@
+networks:
+  im-network:
+    driver: bridge
+    external: true
+    ipam:
+      config:
+        - subnet: 10.0.0.0/24
+
+services:
+  auth-api:
+    image: imauth-api
+    container_name: im-auth-api
+    restart: always
+    ports:
+      - "20001:20001"
+    networks:
+      im-network:
+        ipv4_address: 10.0.0.101
+
+  group-api:
+    image: imgroup-api
+    container_name: im-group-api
+    restart: always
+    ports:
+      - "20005:20005"
+    networks:
+      im-network:
+        ipv4_address: 10.0.0.102
+
+  info-api:
+    image: iminfo-api
+    container_name: im-info-api
+    restart: always
+    ports:
+      - "20002:20002"
+    networks:
+      im-network:
+        ipv4_address: 10.0.0.103
+
+  user-api:
+    image: imuser-api
+    container_name: im-user-api
+    restart: always
+    ports:
+      - "20003:20003"
+    networks:
+      im-network:
+        ipv4_address: 10.0.0.104
+
+  wsget-api:
+    image: imwsget-api
+    container_name: im-wsget-api
+    restart: always
+    ports:
+      - "20004:20004"
+    networks:
+      im-network:
+        ipv4_address: 10.0.0.105
+
+  http-gateway:
+    image: imhttp-gateway
+    container_name: im-http-gateway
+    restart: always
+    ports:
+      - "8081:8081"
+    networks:
+      im-network:
+        ipv4_address: 10.0.0.106
+
+  im-server:
+    image: imim-server
+    container_name: im-im-server
+    restart: always
+    ports:
+      - "8082:8082"
+    networks:
+      im-network:
+        ipv4_address: 10.0.0.107
+
+  message-forward:
+    image: immessage-forward
+    container_name: im-msg-fwd
+    restart: always
+    networks:
+      im-network:
+        ipv4_address: 10.0.0.108
+
+  message-to-db:
+    image: immessage-to-db
+    container_name: im-msg-to-db
+    restart: always
+    networks:
+      im-network:
+        ipv4_address: 10.0.0.109
