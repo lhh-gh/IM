@@ -1,0 +1,55 @@
+syntax = "v1"
+
+info (
+	title:   "group"
+	desc:    "群组相关服务"
+	author:  "n8spxd"
+	version: "v1"
+)
+
+type (
+	GroupCreateRequest {
+		Groupname string `json:"groupname"`
+	}
+	GroupCreateResponse {
+		GroupID uint32 `json:"groupID"`
+	}
+	GroupInfoRequest {
+		GroupID uint32 `json:"groupID`
+	}
+	GroupInfoResponse {
+		Groupname    string   `json:"groupname"`
+		GroupMembers []uint32 `json:"groupMembers"`
+	}
+	GroupInviteRequest {
+		GroupID uint32   `json:"groupId"`
+		Members []uint32 `json:"members"`
+	}
+	GroupInviteResponse  {}
+	GroupJoinedRequest {
+		UserID uint32 `header:"UserID""`
+	}
+	GroupJoinedInfo {
+		GroupID     uint32 `json:"groupId"`
+		GroupName   string `json:"groupName"`
+		GroupAvatar string `json:"groupAvatar"`
+	}
+	GroupJoinedResponse {
+		Infos []GroupJoinedInfo `json:"infos"`
+	}
+)
+
+service group {
+	@handler groupCreate // 创建群聊
+	post /group (GroupCreateRequest) returns (GroupCreateResponse)
+
+	@handler groupInfo // 获取群聊相关信息
+	get /group (GroupInfoRequest) returns (GroupInfoResponse)
+
+	@handler groupInvite // 拉人进群
+	post /group/invite (GroupInviteRequest) returns (GroupInviteResponse)
+
+	@handler groupJoined // 当前用户已经加入过的群组
+	get /groups (GroupJoinedRequest) returns (GroupJoinedResponse)
+}
+
